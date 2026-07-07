@@ -1,0 +1,11 @@
+# OS
+.DS_Store
+
+# Secrets / lokale Keys, nie committen
+*.key
+.env
+.env.*
+
+# Scratch / temporaere Dateien
+/scratch/
+*.tmp
