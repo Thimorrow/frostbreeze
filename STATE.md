@@ -7,6 +7,7 @@ Stand: 07.07.2026
 - Shop `4mm0ka-ff.myshopify.com` ist oeffentlich, Theme Horizon.
 - 3 Produkte sind angelegt, haben echte Produktbilder und sind **kaufbar** (das "Ausverkauft"-Problem ist gefixt, siehe `docs/ausverkauft-fix.md`).
 - Dropshipping laeuft ueber **DSers**. Entscheidung: bei DSers bleiben (keine Alternative-App).
+- **Neue Richtung (07.07.2026): Storefront wird als Next.js Headless-Seite neu gebaut.** Frontend Next.js (Vercel Commerce Starter) + Shopify als Backend via Storefront API, Checkout bleibt Shopify, DSers unveraendert, Deploy auf Vercel. Spec steht in `SPEC.md`. Umsetzung in frischer Session.
 
 ## Produkte (Kurzform, Details in docs/shop.md)
 
@@ -18,6 +19,7 @@ Stand: 07.07.2026
 
 ## Offene TODOs
 
+- [ ] **Next.js Headless-Storefront umsetzen** nach `SPEC.md` (frische Session: `Setze SPEC.md um. Hake am Ende jedes Akzeptanzkriterium mit Beweis ab.`).
 - [ ] **DSers Auto-Bestandssync abschalten** (Setting -> Inventory -> "Do nothing"), sonst kann das "Ausverkauft" zurueckkommen. Details in `docs/dsers.md`.
 - [ ] Rechtstexte (Impressum, Datenschutz, AGB, Widerruf) haben noch `[AUSFUELLEN]`-Platzhalter. Vor scharfem Verkauf ausfuellen.
 - [ ] Optional: haessliche Variantennamen aufraeumen, echte Verkaufspreise setzen.
