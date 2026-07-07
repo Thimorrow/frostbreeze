@@ -1,11 +1,42 @@
 # OS
 .DS_Store
 
-# Secrets / lokale Keys, nie committen
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+.playwright
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# secrets / lokale env, nie committen
 *.key
+*.pem
 .env
 .env.*
+!.env.example
 
-# Scratch / temporaere Dateien
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# scratch / temporaer
 /scratch/
 *.tmp

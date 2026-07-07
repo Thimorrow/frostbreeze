@@ -7,19 +7,23 @@ Stand: 07.07.2026
 - Shop `4mm0ka-ff.myshopify.com` ist oeffentlich, Theme Horizon.
 - 3 Produkte sind angelegt, haben echte Produktbilder und sind **kaufbar** (das "Ausverkauft"-Problem ist gefixt, siehe `docs/ausverkauft-fix.md`).
 - Dropshipping laeuft ueber **DSers**. Entscheidung: bei DSers bleiben (keine Alternative-App).
-- **Neue Richtung (07.07.2026): Storefront wird als Next.js Headless-Seite neu gebaut.** Frontend Next.js (Vercel Commerce Starter) + Shopify als Backend via Storefront API, Checkout bleibt Shopify, DSers unveraendert, Deploy auf Vercel. Spec steht in `SPEC.md`. Umsetzung in frischer Session.
+- **Next.js Headless-Storefront „Frostbreeze" ist gebaut (08.07.2026).** Vercel Commerce im Repo-Root, Shopify als Backend via Storefront API, Checkout bleibt Shopify, DSers unveraendert. `pnpm build` laeuft fehlerfrei, lokal verifiziert (Produkte, Produktseite, Cart-Subtotal, Checkout-URL, Live-Preis-Revalidierung). Spec in `SPEC.md`.
+  - Shop-Primaerdomain ist inzwischen `frostbreeze-store.myshopify.com` (`4mm0ka-ff.myshopify.com` geht fuer die API weiter). `SHOPIFY_STORE_DOMAIN` steht auf der Primaerdomain, damit die Menue-Links relativ bleiben.
+  - Storefront-Token: **oeffentlicher** Token aus dem Headless-Kanal (Header `X-Shopify-Storefront-Access-Token`). Der private `shpss_`-Token funktioniert NICHT mit Vercel Commerce.
+  - Shopify-Config angelegt: Collections `hidden-homepage-featured-items` + `hidden-homepage-carousel`, Menues `next-js-frontend-header-menu` + `next-js-frontend-footer-menu`.
+  - Deploy: Vercel, Account **Thimorrow** (nie zapkothimofej). `.env.local` enthaelt die Secrets (nicht committet).
 
 ## Produkte (Kurzform, Details in docs/shop.md)
 
-| Produkt | Typ | Varianten | Preis EUR |
-|---|---|---|---|
-| PocketBreeze | Mini-Ventilator | 4 | 19,99 |
-| ChillTowel | Kuehl-Handtuch | 7 | 15,14 |
-| CoolPaws | Kuehlmatte Haustier | 24 | 18,09 - 49,59 |
+| Produkt      | Typ                 | Varianten | Preis EUR     |
+| ------------ | ------------------- | --------- | ------------- |
+| PocketBreeze | Mini-Ventilator     | 4         | 19,99         |
+| ChillTowel   | Kuehl-Handtuch      | 7         | 15,14         |
+| CoolPaws     | Kuehlmatte Haustier | 24        | 18,09 - 49,59 |
 
 ## Offene TODOs
 
-- [ ] **Next.js Headless-Storefront umsetzen** nach `SPEC.md` (frische Session: `Setze SPEC.md um. Hake am Ende jedes Akzeptanzkriterium mit Beweis ab.`).
+- [x] **Next.js Headless-Storefront umsetzen** nach `SPEC.md` (gebaut 08.07.2026, lokal verifiziert). Offen: Deploy auf Vercel (Account Thimorrow) sobald `vercel login` als Thimorrow erfolgt ist.
 - [ ] **DSers Auto-Bestandssync abschalten** (Setting -> Inventory -> "Do nothing"), sonst kann das "Ausverkauft" zurueckkommen. Details in `docs/dsers.md`.
 - [ ] Rechtstexte (Impressum, Datenschutz, AGB, Widerruf) haben noch `[AUSFUELLEN]`-Platzhalter. Vor scharfem Verkauf ausfuellen.
 - [ ] Optional: haessliche Variantennamen aufraeumen, echte Verkaufspreise setzen.
