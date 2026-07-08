@@ -1,7 +1,9 @@
 export default {
   experimental: {
     ppr: true,
-    inlineCss: true,
+    // inlineCss bricht next/font: relative Font-URLs im inlinten CSS
+    // loesen gegen die Seiten-URL auf (/media/... -> 404) statt /_next/static/.
+    inlineCss: false,
     useCache: true,
   },
   images: {
