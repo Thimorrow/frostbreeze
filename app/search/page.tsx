@@ -5,6 +5,8 @@ import { defaultSort, sorting } from "lib/constants";
 import { getProducts } from "lib/shopify";
 import type { Metadata } from "next";
 
+export const experimental_ppr = true;
+
 export const metadata: Metadata = {
   title: "Shop",
   description: "Alle Frostbreeze Sommer-Essentials im Überblick.",
