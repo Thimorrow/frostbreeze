@@ -33,7 +33,7 @@ export async function Navbar() {
               className="mr-2 flex w-full items-center justify-center gap-2.5 md:w-auto lg:mr-8"
             >
               <LogoSquare />
-              <span className="font-display flex-none text-lg font-extrabold tracking-tight text-foreground md:hidden lg:block">
+              <span className="font-display flex-none text-lg font-medium tracking-tight text-foreground lowercase md:hidden lg:block">
                 {SITE_NAME}
               </span>
             </Link>

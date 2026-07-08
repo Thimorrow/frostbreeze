@@ -29,7 +29,7 @@ export default async function Footer() {
           <div className="max-w-sm">
             <Link href="/" className="flex items-center gap-2.5 text-white">
               <LogoSquare />
-              <span className="font-display text-xl font-extrabold tracking-tight">
+              <span className="font-display text-xl font-medium tracking-tight lowercase">
                 {SITE_NAME}
               </span>
             </Link>

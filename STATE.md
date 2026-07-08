@@ -1,6 +1,26 @@
 # STATE — aktueller Stand
 
-Stand: 07.07.2026
+Stand: 08.07.2026 (abends)
+
+## In Arbeit: SPEC.md-Umsetzung „Premium-DTC + Live-Deploy" (diese Session)
+
+Erledigt und verifiziert (lokal, Production-Build + Playwright-Klick-Flow):
+
+- Design-Durchgang 2 komplett: PDP (Breadcrumb, Galerie mobil wischbar/Desktop Thumbnails, USP-Box, Zahlarten-Icons, Sticky-Buy-Bar mobil), Suche/Listing (Filter-Pills, Leer-Zustaende), Cart-Drawer (Gratisversand-Fortschrittsbalken ab 30 EUR, neuer Look), 404/Error. Commits 38ca8ff + 75c5544.
+- Conversion: echte Produktfotos im Hero (schwebende Karten + Produkt-Chips), Konto-Link auf Shopifys gehostete Kundenkonten (Navbar/Mobile/Footer), Zahlarten-Icons NUR fuer aktive Zahlarten (Visa, Mastercard, Amex, Shop Pay, Apple Pay, G Pay — via Storefront API verifiziert).
+- Produktdaten in Shopify (per MCP, von Sid freigegeben): Ships-From-Option geloescht (Varianten-IDs/SKUs unveraendert -> DSers safe), deutsche Options-/Variantennamen, .99-Preise gesetzt, Beschreibungen korrigiert (echte Groessen, 30 Tage Rueckgabe einheitlich), Vendor = Frostbreeze. Am Storefront per curl verifiziert.
+- Wichtige Fixes: `experimental.inlineCss` brach next/font (woff2-404 -> Fallback-Font); Welcome-Toast (duration Infinity) verdeckte den "Zur Kasse"-Button; Price-Komponente zeigte "EUR" trotz hidden.
+- Build: `NODE_USE_ENV_PROXY=1 pnpm build` laeuft komplett gruen inkl. Prerender (Memory-Fix bestaetigt). Auch `vercel` CLI braucht `NODE_USE_ENV_PROXY=1`.
+
+Offen (blockiert auf Sid):
+
+- [ ] Logo-Auswahl: 3 SVG-Varianten warten auf http://localhost:4321 (showcase). Danach Einbau in logo.tsx/logo-square.tsx + Favicon.
+- [ ] Vercel-Login ist zapkothimofej-2616 (VERBOTEN) -> `! vercel logout && NODE_USE_ENV_PROXY=1 vercel login` als Thimorrow, dann Deploy + live-verifier.
+- [ ] Manuell im Shopify-Admin: Shop-Name ist noch "Mein Shop" (erscheint im Checkout!) -> Settings -> General -> Store name auf "Frostbreeze" aendern (kein API-Weg).
+
+---
+
+Alter Stand: 07.07.2026
 
 ## Status
 

@@ -5,7 +5,7 @@ export default function LogoSquare({ size }: { size?: "sm" | undefined }) {
   return (
     <div
       className={clsx(
-        "flex flex-none items-center justify-center bg-gradient-to-br from-amber via-coral to-coral-deep text-white shadow-[0_6px_16px_-6px_var(--color-coral)]",
+        "flex flex-none items-center justify-center rounded-xl border border-line bg-surface shadow-sm",
         {
           "h-[40px] w-[40px] rounded-xl": !size,
           "h-[30px] w-[30px] rounded-lg": size === "sm",
@@ -14,8 +14,8 @@ export default function LogoSquare({ size }: { size?: "sm" | undefined }) {
     >
       <LogoIcon
         className={clsx({
-          "h-[18px] w-[18px]": !size,
-          "h-[12px] w-[12px]": size === "sm",
+          "h-[26px] w-[26px]": !size,
+          "h-[18px] w-[18px]": size === "sm",
         })}
       />
     </div>
