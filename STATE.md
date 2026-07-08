@@ -15,10 +15,13 @@ Erledigt und verifiziert (lokal, Production-Build + Playwright-Klick-Flow):
 - Logo fertig: "Solstice"-Mark (halbe Sonne / halbe Schneeflocke) in `components/icons/logo.tsx` (mit `mono`-Prop fuer OG-Image), `logo-square.tsx` (weisse Kachel), `app/icon.svg` + neu generiertes `favicon.ico`, Wortmarke lowercase "frostbreeze". Sid hat die Auswahl delegiert. Commit e24f664. Unabhaengiger Code-Review der Session-Commits: keine kritischen Findings.
 - GitHub-Repo public: https://github.com/Thimorrow/frostbreeze (Sid: "repo darf nicht private sein"). Secret-Scan der History vor Veroeffentlichung: 0 Treffer, nur `.env.example` getrackt.
 
-Offen (blockiert auf Sid):
+- **LIVE: https://frostbreeze-shop.vercel.app** (08.07.2026). Vercel-Account `zapkothimofej-2616` (Sid-Vorgabe; Thimorrow-Regel gilt nur fuer Git-Identitaet). Das erste Projekt `frostbreeze` war vom Abuse-Scanner geflaggt (451 DEPLOYMENT_DISABLED auf jeder neuen Version) -> frisches Projekt `frostbreeze-shop` auf demselben Account loeste es. Git-Integration aktiv: Push auf main deployt automatisch (Repo public: github.com/Thimorrow/frostbreeze, vorher Secret-Scan: 0 Treffer). live-verifier: PASS; Playwright-Klick-Flow live komplett gruen (ATC, Drawer, Checkout-URL, Konto-Login, mobile Sticky-Bar, echter 404).
+- Dabei gefixt: Soft-404 durch globales PPR (statische Shell ging immer mit Status 200 raus) -> `ppr: "incremental"`, Opt-in nur Home/Suche (Commit 45e3fbc).
 
-- [ ] **Vercel-Deploy haengt an 451:** Account ist laut Sid korrekt `zapkothimofej-2616` (Thimorrow-Regel gilt nur fuer Git-Identitaet). Projekt `frostbreeze` verlinkt, 5 Env-Vars gesetzt, Build "Ready" — aber Public-URL liefert `451 DEPLOYMENT_DISABLED`. Fix-Pfad: Repo public (erledigt) + Vercel-Projekt mit GitHub verbinden. `vercel git connect` scheitert, bis Sid im Vercel-Dashboard (https://vercel.com/account/login-connections) die GitHub-Login-Connection zu Thimorrow anlegt. Watcher laeuft.
+Offen (nur noch manuelle Sid-Schritte):
+
 - [ ] Manuell im Shopify-Admin: Shop-Name ist noch "Mein Shop" (erscheint im Checkout!) -> Settings -> General -> Store name auf "Frostbreeze" aendern (kein API-Weg).
+- [ ] Optional: geflaggtes Vercel-Projekt `frostbreeze` im Dashboard loeschen (liefert nur 451) und PocketBreeze-Handle `turbobreeze-...` in Shopify auf einen sauberen Handle aendern (nur Kosmetik, Frontend verlinkt dynamisch).
 
 ---
 
