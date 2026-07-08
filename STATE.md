@@ -12,10 +12,12 @@ Erledigt und verifiziert (lokal, Production-Build + Playwright-Klick-Flow):
 - Wichtige Fixes: `experimental.inlineCss` brach next/font (woff2-404 -> Fallback-Font); Welcome-Toast (duration Infinity) verdeckte den "Zur Kasse"-Button; Price-Komponente zeigte "EUR" trotz hidden.
 - Build: `NODE_USE_ENV_PROXY=1 pnpm build` laeuft komplett gruen inkl. Prerender (Memory-Fix bestaetigt). Auch `vercel` CLI braucht `NODE_USE_ENV_PROXY=1`.
 
+- Logo fertig: "Solstice"-Mark (halbe Sonne / halbe Schneeflocke) in `components/icons/logo.tsx` (mit `mono`-Prop fuer OG-Image), `logo-square.tsx` (weisse Kachel), `app/icon.svg` + neu generiertes `favicon.ico`, Wortmarke lowercase "frostbreeze". Sid hat die Auswahl delegiert. Commit e24f664. Unabhaengiger Code-Review der Session-Commits: keine kritischen Findings.
+- GitHub-Repo public: https://github.com/Thimorrow/frostbreeze (Sid: "repo darf nicht private sein"). Secret-Scan der History vor Veroeffentlichung: 0 Treffer, nur `.env.example` getrackt.
+
 Offen (blockiert auf Sid):
 
-- [ ] Logo-Auswahl: 3 SVG-Varianten warten auf http://localhost:4321 (showcase). Danach Einbau in logo.tsx/logo-square.tsx + Favicon.
-- [ ] Vercel-Login ist zapkothimofej-2616 (VERBOTEN) -> `! vercel logout && NODE_USE_ENV_PROXY=1 vercel login` als Thimorrow, dann Deploy + live-verifier.
+- [ ] **Vercel-Deploy haengt an 451:** Account ist laut Sid korrekt `zapkothimofej-2616` (Thimorrow-Regel gilt nur fuer Git-Identitaet). Projekt `frostbreeze` verlinkt, 5 Env-Vars gesetzt, Build "Ready" — aber Public-URL liefert `451 DEPLOYMENT_DISABLED`. Fix-Pfad: Repo public (erledigt) + Vercel-Projekt mit GitHub verbinden. `vercel git connect` scheitert, bis Sid im Vercel-Dashboard (https://vercel.com/account/login-connections) die GitHub-Login-Connection zu Thimorrow anlegt. Watcher laeuft.
 - [ ] Manuell im Shopify-Admin: Shop-Name ist noch "Mein Shop" (erscheint im Checkout!) -> Settings -> General -> Store name auf "Frostbreeze" aendern (kein API-Weg).
 
 ---
