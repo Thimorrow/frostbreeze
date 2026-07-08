@@ -58,10 +58,30 @@ export async function ThreeItemGrid() {
   const [firstProduct, secondProduct, thirdProduct] = homepageItems;
 
   return (
-    <section className="mx-auto grid max-w-(--breakpoint-2xl) gap-4 px-4 pb-4 md:grid-cols-6 md:grid-rows-2 lg:max-h-[calc(100vh-200px)]">
-      <ThreeItemGridItem size="full" item={firstProduct} priority={true} />
-      <ThreeItemGridItem size="half" item={secondProduct} priority={true} />
-      <ThreeItemGridItem size="half" item={thirdProduct} />
+    <section className="mx-auto max-w-(--breakpoint-2xl) px-4 pt-12 pb-4 sm:pt-16">
+      <div className="mb-6 flex flex-col gap-3 sm:mb-8 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <span className="inline-flex items-center gap-2 text-xs font-bold tracking-widest text-coral uppercase">
+            <span className="h-px w-6 bg-coral" /> Die Kollektion
+          </span>
+          <h2 className="font-display mt-3 text-3xl font-extrabold tracking-tight text-balance text-foreground sm:text-4xl">
+            Drei Essentials gegen die Hitze
+          </h2>
+        </div>
+        <Link
+          href="/search"
+          prefetch={true}
+          className="inline-flex items-center gap-1.5 self-start text-sm font-bold text-foreground underline-offset-4 transition-colors hover:text-coral sm:self-auto"
+        >
+          Alle ansehen <span aria-hidden>→</span>
+        </Link>
+      </div>
+
+      <div className="grid gap-4 md:grid-cols-6 md:grid-rows-2 lg:max-h-[calc(100vh-160px)]">
+        <ThreeItemGridItem size="full" item={firstProduct} priority={true} />
+        <ThreeItemGridItem size="half" item={secondProduct} priority={true} />
+        <ThreeItemGridItem size="half" item={thirdProduct} />
+      </div>
     </section>
   );
 }

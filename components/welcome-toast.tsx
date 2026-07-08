@@ -8,7 +8,7 @@ export function WelcomeToast() {
     // ignore if screen height is too small
     if (window.innerHeight < 650) return;
     if (!document.cookie.includes("welcome-toast=2")) {
-      toast("🛍️ Willkommen bei Next.js Commerce!", {
+      toast("❄️ Willkommen bei Frostbreeze!", {
         id: "welcome-toast",
         duration: Infinity,
         onDismiss: () => {
@@ -16,14 +16,12 @@ export function WelcomeToast() {
         },
         description: (
           <>
-            Das ist eine performante, SSR-basierte Storefront, angetrieben von
-            Shopify, Next.js und Vercel.{" "}
+            Frische Sommer-Essentials gegen die Hitze.{" "}
             <a
-              href="https://vercel.com/templates/next.js/nextjs-commerce"
-              className="text-cyan-600 hover:underline"
-              target="_blank"
+              href="/search"
+              className="font-semibold text-coral hover:underline"
             >
-              Erstelle deine eigene
+              Jetzt entdecken
             </a>
             .
           </>

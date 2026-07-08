@@ -12,7 +12,7 @@ export default function LogoIcon(props: React.ComponentProps<"svg">) {
       strokeLinecap="round"
       strokeLinejoin="round"
       {...props}
-      className={clsx("h-4 w-4 text-cyan-500", props.className)}
+      className={clsx("h-4 w-4 text-current", props.className)}
     >
       {/* Frostbreeze snowflake */}
       <path d="M16 3v26" />

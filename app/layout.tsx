@@ -1,12 +1,24 @@
 import { CartProvider } from "components/cart/cart-context";
 import { Navbar } from "components/layout/navbar";
 import { WelcomeToast } from "components/welcome-toast";
-import { GeistSans } from "geist/font/sans";
 import { getCart } from "lib/shopify";
+import { baseUrl } from "lib/utils";
+import { Hanken_Grotesk, Unbounded } from "next/font/google";
 import { ReactNode } from "react";
 import { Toaster } from "sonner";
 import "./globals.css";
-import { baseUrl } from "lib/utils";
+
+const display = Unbounded({
+  subsets: ["latin"],
+  variable: "--font-unbounded",
+  display: "swap",
+});
+
+const sans = Hanken_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-hanken",
+  display: "swap",
+});
 
 const { SITE_NAME } = process.env;
 
@@ -31,8 +43,12 @@ export default async function RootLayout({
   const cart = getCart();
 
   return (
-    <html lang="de" className={GeistSans.variable}>
-      <body className="bg-neutral-50 text-black selection:bg-cyan-200 dark:bg-neutral-900 dark:text-white dark:selection:bg-cyan-500 dark:selection:text-white">
+    <html
+      lang="de"
+      className={`${display.variable} ${sans.variable}`}
+      suppressHydrationWarning
+    >
+      <body className="bg-background text-foreground font-sans antialiased">
         <CartProvider cartPromise={cart}>
           <Navbar />
           <main>

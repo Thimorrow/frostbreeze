@@ -21,9 +21,19 @@ Stand: 07.07.2026
 | ChillTowel   | Kuehl-Handtuch      | 7         | 15,14         |
 | CoolPaws     | Kuehlmatte Haustier | 24        | 18,09 - 49,59 |
 
+## Frontend-Redesign „Sun & Ice" (08.07.2026)
+
+Erster Durchgang: Design-System + Homepage + Navbar/Footer neu gestaltet (Richtung „Sun & Ice", vibrant DTC: warmes Cream-Papier, heisses Coral/Amber gegen Eisblau, Display-Font Unbounded + Body Hanken Grotesk).
+
+- Geaenderte Dateien: `app/globals.css` (neues Tailwind-v4-Design-System: `@theme`-Tokens, Fonts, Keyframes, Grain, Reduced-Motion), `app/layout.tsx` (next/font: Unbounded+Hanken), `components/hero.tsx` (neuer Hero + Trust-Ticker), `components/carousel.tsx`, `components/grid/three-items.tsx`, `components/grid/tile.tsx`, `components/label.tsx`, `components/layout/navbar/index.tsx` + `mobile-menu.tsx` + `search.tsx`, `components/layout/footer.tsx` + `footer-menu.tsx` (Vercel-Boilerplate raus), `components/cart/open-cart.tsx`, `components/logo-square.tsx`, `components/icons/logo.tsx`, `components/welcome-toast.tsx` (Brand statt Vercel).
+- Bugfix nebenbei: `animate-carousel` / `animate-fadeIn` / `animate-blink` waren referenziert, aber nie definiert (No-ops) -> jetzt echte Keyframes im `@theme`.
+- Verifikation: `pnpm build` **kompiliert erfolgreich** („✓ Compiled successfully"), Design-Tokens landen im Production-CSS. Alle geaenderten Dateien sind prettier-clean. Der Build bricht danach beim Prerender von `/_not-found` ab — Ursache `ECONNREFUSED` zu Shopify aus dem Node-Build-Prozess dieser Umgebung (curl erreicht die Domain, der Build-Prozess nicht). **Baseline (Originalcode) bricht identisch ab -> kein Regress, reines Umgebungs-/Netz-Thema.** Gruener Full-Build + Live-Render auf Maschine mit Node-Egress zu Shopify bzw. auf Vercel pruefen.
+- Offen (zweiter Durchgang): Produktdetailseite, Suche/Listing, Cart-Drawer im neuen Look.
+
 ## Offene TODOs
 
-- [x] **Next.js Headless-Storefront umsetzen** nach `SPEC.md` (gebaut 08.07.2026, lokal verifiziert). Offen: Deploy auf Vercel (Account Thimorrow) sobald `vercel login` als Thimorrow erfolgt ist.
+- [ ] **Neue SPEC.md umsetzen (08.07.2026):** Premium-DTC-Fertigstellung (PDP/Suche/Cart im Sun&Ice-Look), echtes SVG-Logo, Conversion/Trust, Produktdaten aufraeumen, Vercel-Deploy bis live. Ausfuehrung in frischer Session: `Setze SPEC.md um. Hake am Ende jedes Akzeptanzkriterium mit Beweis ab.`
+- [x] **Next.js Headless-Storefront umsetzen** nach alter SPEC (in Git-History, Commit 98b6a9c; gebaut 08.07.2026, lokal verifiziert). Deploy-Teil ist in die neue SPEC.md gewandert.
 - [ ] **DSers Auto-Bestandssync abschalten** (Setting -> Inventory -> "Do nothing"), sonst kann das "Ausverkauft" zurueckkommen. Details in `docs/dsers.md`.
 - [ ] Rechtstexte (Impressum, Datenschutz, AGB, Widerruf) haben noch `[AUSFUELLEN]`-Platzhalter. Vor scharfem Verkauf ausfuellen.
 - [ ] Optional: haessliche Variantennamen aufraeumen, echte Verkaufspreise setzen.
