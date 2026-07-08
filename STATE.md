@@ -1,6 +1,23 @@
 # STATE — aktueller Stand
 
-Stand: 08.07.2026 (abends)
+Stand: 08.07.2026 (spät abends)
+
+## Mobile-Optimierung komplett (Commit 0dc3269, live verifiziert)
+
+Audit (Playwright iPhone-13-Viewport gegen live + Code-Review) -> 16 Fixes, alle umgesetzt und live auf frostbreeze-shop.vercel.app verifiziert:
+
+- Toast: `position="top-center"` + closeButton (lag vorher mobil full-width unten ÜBER Sticky-Buy-Bar, Cart-Drawer und Mobile-Menü, z-index ~1e9), duration 5s, Close-Button per CSS auf 28px.
+- Cart-Drawer + Mobile-Menü: `h-full` -> `h-dvh` (iOS-Safari-Clipping), `pb-[max(env(safe-area-inset-bottom),1.5rem)]`, `overscroll-contain`; Menü-Inhalt scrollbar.
+- PDP: Breadcrumb `min-w-0` (H-Overflow bei langen Titeln), Breadcrumb-Links py-2, H1 mobil `text-2xl`.
+- Touch-Targets >=44px: Quantity-Buttons (waren 36px), Filter-Dropdown-Trigger, Footer-Links.
+- Listing mobil 2-spaltig (`grid-cols-2 lg:grid-cols-3`), Label-Pille mit flex-wrap/line-clamp-2/13px.
+- Carousel: mobil native Scroll + snap statt Marquee (erste Kachel war angeschnitten, hover-only-Pause), Duplikat-Items `max-md:hidden`, `.scrollbar-none`-Utility in globals.css.
+- Suche: Lupe-Button in mobiler Navbar (öffnet Menü mit fokussiertem Suchfeld), Input `type/inputMode/enterKeyHint=search`, `text-base` mobil (iOS-Fokus-Zoom-Fix), Typo `w-max-[550px]` -> `max-w-[550px]`.
+- `min-h-screen` -> `min-h-dvh` (search/layout), active:scale-Feedback auf Haupt-CTAs.
+
+Verifiziert live (Playwright, 390x844): kein H-Overflow auf 7 Seiten, 2-Spalten-Grid, Suchfeld-Attribute + 16px, Lupe fokussiert Suchfeld, Carousel ohne Marquee/firstLeft=0, kompletter Kauf-Flow (Variantenwahl -> ATC -> Drawer -> Checkout-Button y=548+52 im 844er-Viewport -> Shopify-Checkout-URL), Filter-Trigger 46px, Quantity 44x44. Achtung fürs nächste Mal: Live-Playwright braucht nach Varianten-Tap ~1,5s (RSC-Roundtrip), sonst False-FAILs; `networkidle` hängt gegen lokalen `next start`.
+
+Prettier-Warnungen in docs/shop.md, lib/shopify/index.ts, tsconfig.json sind VORBESTEHEND (nicht aus diesem Diff), bewusst nicht angefasst.
 
 ## In Arbeit: SPEC.md-Umsetzung „Premium-DTC + Live-Deploy" (diese Session)
 
