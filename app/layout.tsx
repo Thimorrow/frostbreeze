@@ -53,7 +53,7 @@ export default async function RootLayout({
           <Navbar />
           <main>
             {children}
-            <Toaster closeButton />
+            <Toaster position="top-center" closeButton />
             <WelcomeToast />
           </main>
         </CartProvider>

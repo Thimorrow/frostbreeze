@@ -12,7 +12,7 @@ function SubmitButton({ type }: { type: "plus" | "minus" }) {
       type="submit"
       aria-label={type === "plus" ? "Menge erhöhen" : "Menge verringern"}
       className={clsx(
-        "flex h-full max-w-[36px] min-w-[36px] flex-none items-center justify-center rounded-full p-2 text-foreground transition-[color,scale] duration-150 hover:text-coral active:scale-[0.96]",
+        "flex h-full min-h-11 min-w-11 flex-none items-center justify-center rounded-full p-2 text-foreground transition-[color,scale] duration-150 hover:text-coral active:scale-[0.96]",
         {
           "ml-auto": type === "minus",
         },

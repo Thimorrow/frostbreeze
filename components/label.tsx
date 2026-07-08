@@ -21,8 +21,8 @@ const Label = ({
         },
       )}
     >
-      <div className="glass flex items-center rounded-full border border-line p-1 text-xs font-semibold text-foreground shadow-sm">
-        <h3 className="mr-4 line-clamp-2 grow pl-3 leading-tight tracking-tight">
+      <div className="glass flex flex-wrap items-center gap-1 rounded-full border border-line p-1 text-[13px] font-semibold text-foreground shadow-sm">
+        <h3 className="line-clamp-2 grow pl-3 pr-1 leading-tight tracking-tight">
           {title}
         </h3>
         <Price

@@ -89,7 +89,7 @@ export default async function ProductPage(props: {
           <Link
             href="/"
             prefetch={true}
-            className="transition-colors hover:text-coral"
+            className="py-2 -my-2 transition-colors hover:text-coral"
           >
             Start
           </Link>
@@ -97,12 +97,14 @@ export default async function ProductPage(props: {
           <Link
             href="/search"
             prefetch={true}
-            className="transition-colors hover:text-coral"
+            className="py-2 -my-2 transition-colors hover:text-coral"
           >
             Shop
           </Link>
           <span aria-hidden>/</span>
-          <span className="truncate text-foreground">{product.title}</span>
+          <span className="min-w-0 truncate text-foreground">
+            {product.title}
+          </span>
         </nav>
 
         <div className="flex flex-col gap-8 lg:flex-row lg:gap-12">

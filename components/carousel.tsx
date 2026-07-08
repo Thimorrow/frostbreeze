@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import { getCollectionProducts } from "lib/shopify";
 import Link from "next/link";
 import { GridTileImage } from "./grid/tile";
@@ -26,12 +27,15 @@ export async function Carousel() {
         </div>
       </div>
 
-      <div className="group relative w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]">
-        <ul className="animate-carousel flex w-max gap-4 px-4 group-hover:[animation-play-state:paused]">
+      <div className="group relative w-full overflow-x-auto snap-x snap-mandatory scrollbar-none md:overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]">
+        <ul className="animate-carousel flex w-max gap-4 px-4 group-hover:[animation-play-state:paused] max-md:[animation:none]">
           {carouselProducts.map((product, i) => (
             <li
               key={`${product.handle}${i}`}
-              className="relative aspect-square h-[34vh] max-h-[300px] w-2/3 max-w-[420px] flex-none sm:w-1/3"
+              className={clsx(
+                "relative aspect-square h-[34vh] max-h-[300px] w-2/3 max-w-[420px] flex-none snap-start sm:w-1/3",
+                i >= products.length && "max-md:hidden",
+              )}
             >
               <Link
                 href={`/product/${product.handle}`}

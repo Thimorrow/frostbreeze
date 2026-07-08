@@ -19,7 +19,7 @@ export function FooterMenuItem({ item }: { item: Menu }) {
       <Link
         href={item.path}
         className={clsx(
-          "block py-1.5 text-sm text-neutral-400 underline-offset-4 transition-colors hover:text-coral",
+          "block py-2 text-sm text-neutral-400 underline-offset-4 transition-colors hover:text-coral",
           {
             "text-white": active,
           },

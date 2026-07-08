@@ -139,7 +139,7 @@ export async function Hero() {
           <Link
             href="/search"
             prefetch={true}
-            className="group inline-flex items-center gap-2 rounded-full bg-coral px-7 py-3.5 text-sm font-bold text-white shadow-[0_10px_30px_-8px_var(--color-coral)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-coral-deep hover:shadow-[0_16px_40px_-8px_var(--color-coral)]"
+            className="group inline-flex items-center gap-2 rounded-full bg-coral px-7 py-3.5 text-sm font-bold text-white shadow-[0_10px_30px_-8px_var(--color-coral)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-coral-deep hover:shadow-[0_16px_40px_-8px_var(--color-coral)] active:scale-[0.98]"
           >
             Jetzt shoppen
             <span className="transition-transform duration-200 group-hover:translate-x-0.5">
@@ -149,7 +149,7 @@ export async function Hero() {
           <Link
             href="/search"
             prefetch={true}
-            className="inline-flex items-center gap-2 rounded-full border border-line bg-surface/60 px-7 py-3.5 text-sm font-bold text-foreground backdrop-blur-sm transition-colors duration-200 hover:border-ice-deep hover:text-ice-deep"
+            className="inline-flex items-center gap-2 rounded-full border border-line bg-surface/60 px-7 py-3.5 text-sm font-bold text-foreground backdrop-blur-sm transition-[color,transform] duration-200 hover:border-ice-deep hover:text-ice-deep active:scale-[0.98]"
           >
             Bestseller ansehen
           </Link>

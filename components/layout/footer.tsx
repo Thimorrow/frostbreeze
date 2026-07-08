@@ -40,7 +40,7 @@ export default async function Footer() {
             <Link
               href="/search"
               prefetch={true}
-              className="mt-6 inline-flex items-center gap-2 rounded-full bg-coral px-5 py-2.5 text-sm font-bold text-white transition-colors hover:bg-coral-deep"
+              className="mt-6 inline-flex items-center gap-2 rounded-full bg-coral px-5 py-2.5 text-sm font-bold text-white transition-[color,transform] hover:bg-coral-deep active:scale-[0.98]"
             >
               Jetzt shoppen <span aria-hidden>→</span>
             </Link>
@@ -79,7 +79,7 @@ export default async function Footer() {
               <li>
                 <a
                   href={`https://${SHOPIFY_STORE_DOMAIN}/account`}
-                  className="inline-flex items-center gap-2.5 transition-colors hover:text-white"
+                  className="inline-flex items-center gap-2.5 py-2 -my-1 transition-colors hover:text-white"
                 >
                   <span className="h-1.5 w-1.5 rounded-full bg-frost" />
                   Mein Konto

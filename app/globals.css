@@ -187,6 +187,20 @@
     background-color: color-mix(in oklab, var(--surface) 72%, transparent);
     backdrop-filter: blur(14px) saturate(140%);
   }
+
+  /* Hide scrollbars on horizontally scrollable carousels (mobile) */
+  .scrollbar-none {
+    scrollbar-width: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Sonner toast: larger close tap-target (>=28px) on mobile */
+[data-sonner-toast] [data-close-button] {
+  width: 1.75rem;
+  height: 1.75rem;
 }
 
 /* Respect reduced-motion preferences */

@@ -15,7 +15,7 @@ export function WelcomeToast() {
       // über dem "Zur Kasse"-Button im Cart-Drawer und blockierte Klicks.
       toast("❄️ Willkommen bei Frostbreeze!", {
         id: "welcome-toast",
-        duration: 8000,
+        duration: 5000,
         onDismiss: setSeenCookie,
         onAutoClose: setSeenCookie,
         description: (

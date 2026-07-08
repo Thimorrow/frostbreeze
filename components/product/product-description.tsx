@@ -41,7 +41,7 @@ export function ProductDescription({ product }: { product: Product }) {
             Ausverkauft
           </span>
         ) : null}
-        <h1 className="font-display text-3xl font-extrabold tracking-tight text-balance text-foreground sm:text-4xl">
+        <h1 className="font-display text-2xl font-extrabold tracking-tight text-balance break-words text-foreground sm:text-4xl">
           {product.title}
         </h1>
         <div className="mt-4 flex items-baseline gap-2">

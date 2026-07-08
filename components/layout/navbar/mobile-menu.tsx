@@ -5,7 +5,12 @@ import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { Fragment, Suspense, useEffect, useState } from "react";
 
-import { Bars3Icon, UserIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import {
+  Bars3Icon,
+  MagnifyingGlassIcon,
+  UserIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
 import { Menu } from "lib/shopify/types";
 import Search, { SearchSkeleton } from "./search";
 
@@ -19,7 +24,16 @@ export default function MobileMenu({
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [isOpen, setIsOpen] = useState(false);
-  const openMobileMenu = () => setIsOpen(true);
+  // Wenn das Menü über die Lupe geöffnet wird, bekommt das Suchfeld den Fokus.
+  const [focusSearch, setFocusSearch] = useState(false);
+  const openMobileMenu = () => {
+    setFocusSearch(false);
+    setIsOpen(true);
+  };
+  const openSearchMobile = () => {
+    setFocusSearch(true);
+    setIsOpen(true);
+  };
   const closeMobileMenu = () => setIsOpen(false);
 
   useEffect(() => {
@@ -38,13 +52,22 @@ export default function MobileMenu({
 
   return (
     <>
-      <button
-        onClick={openMobileMenu}
-        aria-label="Menü öffnen"
-        className="flex h-11 w-11 items-center justify-center rounded-full border border-line bg-surface text-foreground transition-colors hover:border-coral md:hidden"
-      >
-        <Bars3Icon className="h-4" />
-      </button>
+      <div className="flex items-center gap-2 md:hidden">
+        <button
+          onClick={openMobileMenu}
+          aria-label="Menü öffnen"
+          className="flex h-11 w-11 items-center justify-center rounded-full border border-line bg-surface text-foreground transition-colors hover:border-coral"
+        >
+          <Bars3Icon className="h-4" />
+        </button>
+        <button
+          onClick={openSearchMobile}
+          aria-label="Suche öffnen"
+          className="flex h-11 w-11 items-center justify-center rounded-full border border-line bg-surface text-foreground transition-colors hover:border-coral"
+        >
+          <MagnifyingGlassIcon className="h-5" />
+        </button>
+      </div>
       <Transition show={isOpen}>
         <Dialog onClose={closeMobileMenu} className="relative z-50">
           <Transition.Child
@@ -67,8 +90,8 @@ export default function MobileMenu({
             leaveFrom="translate-x-0"
             leaveTo="translate-x-[-100%]"
           >
-            <Dialog.Panel className="fixed top-0 right-0 bottom-0 left-0 flex h-full w-full flex-col bg-background pb-6">
-              <div className="p-4">
+            <Dialog.Panel className="fixed top-0 right-0 bottom-0 left-0 flex h-dvh w-full flex-col bg-background pb-[max(env(safe-area-inset-bottom),1.5rem)]">
+              <div className="flex-1 overflow-y-auto overscroll-contain p-4">
                 <button
                   className="mb-4 flex h-11 w-11 items-center justify-center rounded-full border border-line bg-surface text-foreground transition-colors hover:border-coral"
                   onClick={closeMobileMenu}
@@ -79,7 +102,7 @@ export default function MobileMenu({
 
                 <div className="mb-4 w-full">
                   <Suspense fallback={<SearchSkeleton />}>
-                    <Search />
+                    <Search shouldFocus={focusSearch} />
                   </Suspense>
                 </div>
                 {menu.length ? (

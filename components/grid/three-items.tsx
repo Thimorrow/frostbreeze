@@ -71,7 +71,7 @@ export async function ThreeItemGrid() {
         <Link
           href="/search"
           prefetch={true}
-          className="inline-flex items-center gap-1.5 self-start text-sm font-bold text-foreground underline-offset-4 transition-colors hover:text-coral sm:self-auto"
+          className="inline-flex items-center gap-1.5 self-start py-2 text-sm font-bold text-foreground underline-offset-4 transition-colors hover:text-coral sm:self-auto"
         >
           Alle ansehen <span aria-hidden>→</span>
         </Link>

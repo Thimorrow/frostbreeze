@@ -125,7 +125,7 @@ export default function CartModal() {
             leaveFrom="translate-x-0"
             leaveTo="translate-x-full"
           >
-            <Dialog.Panel className="fixed top-0 right-0 bottom-0 flex h-full w-full flex-col border-l border-line bg-background/90 p-6 backdrop-blur-xl md:w-[420px]">
+            <Dialog.Panel className="fixed top-0 right-0 bottom-0 flex h-dvh w-full flex-col border-l border-line bg-background/90 px-6 pt-6 pb-[max(env(safe-area-inset-bottom),1.5rem)] backdrop-blur-xl md:w-[420px]">
               <div className="flex items-center justify-between">
                 <p className="font-display text-lg font-extrabold tracking-tight text-foreground">
                   Dein Warenkorb
@@ -162,7 +162,7 @@ export default function CartModal() {
                 </div>
               ) : (
                 <div className="flex h-full flex-col justify-between overflow-hidden">
-                  <ul className="grow overflow-auto py-4">
+                  <ul className="grow overflow-auto overscroll-contain py-4">
                     {cart.lines
                       .sort((a, b) =>
                         a.merchandise.product.title.localeCompare(
@@ -242,7 +242,7 @@ export default function CartModal() {
                                   }
                                   currencyCodeClassName="hidden"
                                 />
-                                <div className="ml-auto flex h-9 flex-row items-center rounded-full border border-line bg-surface">
+                                <div className="ml-auto flex h-11 flex-row items-center rounded-full border border-line bg-surface">
                                   <EditItemQuantityButton
                                     item={item}
                                     type="minus"

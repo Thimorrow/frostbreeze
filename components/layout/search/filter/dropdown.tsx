@@ -45,7 +45,7 @@ export default function FilterItemDropdown({ list }: { list: ListItem[] }) {
         onClick={() => {
           setOpenSelect(!openSelect);
         }}
-        className="flex w-full items-center justify-between rounded-xl border border-line bg-surface px-4 py-2.5 text-sm font-semibold text-foreground transition-colors duration-150 hover:border-coral"
+        className="flex w-full min-h-11 items-center justify-between rounded-xl border border-line bg-surface px-4 py-3 text-sm font-semibold text-foreground transition-colors duration-150 hover:border-coral"
       >
         <span>{active}</span>
         <ChevronDownIcon
