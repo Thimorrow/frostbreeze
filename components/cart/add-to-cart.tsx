@@ -11,13 +11,18 @@ import { useCart } from "./cart-context";
 function SubmitButton({
   availableForSale,
   selectedVariantId,
+  compact,
 }: {
   availableForSale: boolean;
   selectedVariantId: string | undefined;
+  compact?: boolean;
 }) {
-  const buttonClasses =
-    "relative flex w-full items-center justify-center rounded-full bg-cyan-600 p-4 tracking-wide text-white transition-colors";
-  const disabledClasses = "cursor-not-allowed opacity-60 hover:opacity-60";
+  const buttonClasses = clsx(
+    "flex w-full items-center justify-center gap-2 rounded-full bg-coral text-sm font-bold tracking-wide text-white shadow-[0_10px_30px_-8px_var(--color-coral)] transition-[background-color,box-shadow,scale] duration-200",
+    compact ? "px-5 py-3" : "px-6 py-4",
+  );
+  const disabledClasses =
+    "cursor-not-allowed bg-surface-2 text-muted shadow-none";
 
   if (!availableForSale) {
     return (
@@ -34,9 +39,7 @@ function SubmitButton({
         disabled
         className={clsx(buttonClasses, disabledClasses)}
       >
-        <div className="absolute left-0 ml-4">
-          <PlusIcon className="h-5" />
-        </div>
+        <PlusIcon className="h-5" />
         In den Warenkorb
       </button>
     );
@@ -45,17 +48,24 @@ function SubmitButton({
   return (
     <button
       aria-label="In den Warenkorb"
-      className={clsx(buttonClasses, "hover:bg-cyan-500")}
+      className={clsx(
+        buttonClasses,
+        "hover:bg-coral-deep hover:shadow-[0_16px_40px_-8px_var(--color-coral)] active:scale-[0.98]",
+      )}
     >
-      <div className="absolute left-0 ml-4">
-        <PlusIcon className="h-5" />
-      </div>
+      <PlusIcon className="h-5" />
       In den Warenkorb
     </button>
   );
 }
 
-export function AddToCart({ product }: { product: Product }) {
+export function AddToCart({
+  product,
+  compact,
+}: {
+  product: Product;
+  compact?: boolean;
+}) {
   const { variants, availableForSale } = product;
   const { addCartItem } = useCart();
   const searchParams = useSearchParams();
@@ -83,6 +93,7 @@ export function AddToCart({ product }: { product: Product }) {
       <SubmitButton
         availableForSale={availableForSale}
         selectedVariantId={selectedVariantId}
+        compact={compact}
       />
       <p aria-live="polite" className="sr-only" role="status">
         {message}

@@ -47,9 +47,16 @@ export function VariantSelector({
 
   return options.map((option) => (
     <form key={option.id}>
-      <dl className="mb-8">
-        <dt className="mb-4 text-sm uppercase tracking-wide">{option.name}</dt>
-        <dd className="flex flex-wrap gap-3">
+      <dl className="mb-7">
+        <dt className="mb-3 text-xs font-bold tracking-wider text-muted uppercase">
+          {option.name}
+          {searchParams.get(option.name.toLowerCase()) ? (
+            <span className="ml-2 font-semibold normal-case tracking-normal text-foreground">
+              {searchParams.get(option.name.toLowerCase())}
+            </span>
+          ) : null}
+        </dt>
+        <dd className="flex flex-wrap gap-2.5">
           {option.values.map((value) => {
             const optionNameLowerCase = option.name.toLowerCase();
 
@@ -85,12 +92,13 @@ export function VariantSelector({
                 disabled={!isAvailableForSale}
                 title={`${option.name} ${value}${!isAvailableForSale ? " (Ausverkauft)" : ""}`}
                 className={clsx(
-                  "flex min-w-[48px] items-center justify-center rounded-full border bg-neutral-100 px-2 py-1 text-sm dark:border-neutral-800 dark:bg-neutral-900",
+                  "flex min-h-11 min-w-11 items-center justify-center rounded-full border px-4 py-2 text-sm font-semibold transition-[border-color,background-color,color,scale] duration-150",
                   {
-                    "cursor-default ring-2 ring-cyan-600": isActive,
-                    "ring-1 ring-transparent transition duration-300 ease-in-out hover:ring-cyan-600":
+                    "cursor-default border-coral bg-coral text-white shadow-[0_6px_16px_-6px_var(--color-coral)]":
+                      isActive,
+                    "border-line bg-surface text-foreground hover:border-coral hover:text-coral active:scale-[0.96]":
                       !isActive && isAvailableForSale,
-                    "relative z-10 cursor-not-allowed overflow-hidden bg-neutral-100 text-neutral-500 ring-1 ring-neutral-300 before:absolute before:inset-x-0 before:-z-10 before:h-px before:-rotate-45 before:bg-neutral-300 before:transition-transform dark:bg-neutral-900 dark:text-neutral-400 dark:ring-neutral-700 dark:before:bg-neutral-700":
+                    "relative z-10 cursor-not-allowed overflow-hidden border-line/60 bg-surface-2 text-muted/60 before:absolute before:inset-x-0 before:-z-10 before:h-px before:-rotate-45 before:bg-muted/40":
                       !isAvailableForSale,
                   },
                 )}

@@ -2,10 +2,11 @@ import Link from "next/link";
 
 import FooterMenu from "components/layout/footer-menu";
 import LogoSquare from "components/logo-square";
+import PaymentIcons from "components/payment-icons";
 import { getMenu } from "lib/shopify";
 import { Suspense } from "react";
 
-const { COMPANY_NAME, SITE_NAME } = process.env;
+const { COMPANY_NAME, SITE_NAME, SHOPIFY_STORE_DOMAIN } = process.env;
 
 const trust = [
   { label: "Versand aus Deutschland", color: "bg-coral" },
@@ -75,7 +76,20 @@ export default async function Footer() {
                   {t.label}
                 </li>
               ))}
+              <li>
+                <a
+                  href={`https://${SHOPIFY_STORE_DOMAIN}/account`}
+                  className="inline-flex items-center gap-2.5 transition-colors hover:text-white"
+                >
+                  <span className="h-1.5 w-1.5 rounded-full bg-frost" />
+                  Mein Konto
+                </a>
+              </li>
             </ul>
+            <h3 className="mt-8 mb-3 text-xs font-bold tracking-widest text-neutral-500 uppercase">
+              Sicher bezahlen
+            </h3>
+            <PaymentIcons className="flex flex-wrap items-center gap-1.5" />
           </div>
         </div>
       </div>

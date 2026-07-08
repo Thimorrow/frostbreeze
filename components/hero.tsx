@@ -1,3 +1,7 @@
+import Price from "components/price";
+import { getCollectionProducts } from "lib/shopify";
+import type { Product } from "lib/shopify/types";
+import Image from "next/image";
 import Link from "next/link";
 
 function Snowflake({ className }: { className?: string }) {
@@ -34,7 +38,52 @@ const ticker = [
 // seamlessly and stays wider than the viewport on large screens.
 const tickerLoop = [...ticker, ...ticker, ...ticker, ...ticker];
 
-export function Hero() {
+function FloatingProductCard({
+  product,
+  className,
+  imgClassName,
+  animation,
+}: {
+  product?: Product;
+  className: string;
+  imgClassName: string;
+  animation: string;
+}) {
+  if (!product?.featuredImage?.url) return null;
+
+  return (
+    <Link
+      href={`/product/${product.handle}`}
+      prefetch={true}
+      aria-label={product.title}
+      className={`absolute hidden lg:block ${animation} ${className}`}
+    >
+      <span className="block overflow-hidden rounded-3xl border border-line bg-surface/90 shadow-[0_24px_60px_-24px_rgba(25,20,16,0.4)] backdrop-blur-sm transition-transform duration-300 hover:scale-[1.04]">
+        <span className={`relative block ${imgClassName}`}>
+          <Image
+            src={product.featuredImage.url}
+            alt={product.title}
+            fill
+            sizes="220px"
+            className="object-contain p-4"
+          />
+        </span>
+        <Price
+          className="absolute right-3 bottom-3 rounded-full bg-coral px-2.5 py-1 text-xs font-bold text-white tabular-nums"
+          amount={product.priceRange.minVariantPrice.amount}
+          currencyCode={product.priceRange.minVariantPrice.currencyCode}
+          currencyCodeClassName="hidden"
+        />
+      </span>
+    </Link>
+  );
+}
+
+export async function Hero() {
+  const products = await getCollectionProducts({
+    collection: "hidden-homepage-featured-items",
+  });
+
   return (
     <section className="relative overflow-hidden">
       {/* Atmosphere: sun glow + ice glow + drifting marks */}
@@ -42,10 +91,23 @@ export function Hero() {
         <div className="animate-float absolute -top-40 -right-24 h-[34rem] w-[34rem] rounded-full bg-[radial-gradient(circle_at_center,var(--color-sun),var(--color-coral)_42%,transparent_70%)] opacity-60 blur-2xl" />
         <div className="animate-float-slow absolute -bottom-48 -left-32 h-[32rem] w-[32rem] rounded-full bg-[radial-gradient(circle_at_center,var(--color-ice),transparent_68%)] opacity-55 blur-2xl" />
         <Snowflake className="animate-spin-slow absolute top-24 left-[12%] hidden h-10 w-10 text-ice-deep/40 sm:block" />
-        <Snowflake className="animate-float absolute right-[14%] bottom-28 hidden h-14 w-14 text-coral/30 lg:block" />
       </div>
 
-      <div className="relative mx-auto max-w-5xl px-4 pt-16 pb-10 text-center sm:pt-24 sm:pb-14">
+      {/* Echte Produktfotos als schwebende Karten (Desktop) */}
+      <FloatingProductCard
+        product={products[0]}
+        className="top-24 left-[4%] w-44 -rotate-6 xl:left-[7%]"
+        imgClassName="aspect-square"
+        animation="animate-float"
+      />
+      <FloatingProductCard
+        product={products[1]}
+        className="top-40 right-[4%] w-52 rotate-[5deg] xl:right-[7%]"
+        imgClassName="aspect-square"
+        animation="animate-float-slow"
+      />
+
+      <div className="relative z-10 mx-auto max-w-5xl px-4 pt-16 pb-10 text-center sm:pt-24 sm:pb-14">
         <span
           className="animate-rise inline-flex items-center gap-2 rounded-full border border-line bg-surface/70 px-4 py-1.5 text-xs font-semibold tracking-wide text-muted uppercase backdrop-blur-sm"
           style={{ animationDelay: "60ms" }}
@@ -93,9 +155,49 @@ export function Hero() {
           </Link>
         </div>
 
+        {/* Echte Produkte als Quick-Links */}
+        {products.length ? (
+          <div
+            className="animate-rise mt-10 flex flex-wrap items-center justify-center gap-2.5"
+            style={{ animationDelay: "380ms" }}
+          >
+            {products.slice(0, 3).map((product) =>
+              product.featuredImage?.url ? (
+                <Link
+                  key={product.handle}
+                  href={`/product/${product.handle}`}
+                  prefetch={true}
+                  className="group flex items-center gap-2.5 rounded-full border border-line bg-surface/80 py-1.5 pr-4 pl-1.5 backdrop-blur-sm transition-[border-color,scale] duration-200 hover:border-coral active:scale-[0.96]"
+                >
+                  <span className="relative h-9 w-9 overflow-hidden rounded-full border border-line bg-surface">
+                    <Image
+                      src={product.featuredImage.url}
+                      alt={product.title}
+                      fill
+                      sizes="36px"
+                      className="object-cover"
+                    />
+                  </span>
+                  <span className="text-xs font-bold text-foreground transition-colors group-hover:text-coral">
+                    {product.title}
+                  </span>
+                  <Price
+                    className="text-xs font-semibold text-muted tabular-nums"
+                    amount={product.priceRange.minVariantPrice.amount}
+                    currencyCode={
+                      product.priceRange.minVariantPrice.currencyCode
+                    }
+                    currencyCodeClassName="hidden"
+                  />
+                </Link>
+              ) : null,
+            )}
+          </div>
+        ) : null}
+
         <div
-          className="animate-rise mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs font-semibold text-muted"
-          style={{ animationDelay: "380ms" }}
+          className="animate-rise mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs font-semibold text-muted"
+          style={{ animationDelay: "440ms" }}
         >
           <span className="inline-flex items-center gap-1.5">
             <span className="h-1.5 w-1.5 rounded-full bg-coral" /> 3 Bestseller

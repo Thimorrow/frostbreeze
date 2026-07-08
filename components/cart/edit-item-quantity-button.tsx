@@ -12,16 +12,16 @@ function SubmitButton({ type }: { type: "plus" | "minus" }) {
       type="submit"
       aria-label={type === "plus" ? "Menge erhöhen" : "Menge verringern"}
       className={clsx(
-        "ease flex h-full min-w-[36px] max-w-[36px] flex-none items-center justify-center rounded-full p-2 transition-all duration-200 hover:border-neutral-800 hover:opacity-80",
+        "flex h-full max-w-[36px] min-w-[36px] flex-none items-center justify-center rounded-full p-2 text-foreground transition-[color,scale] duration-150 hover:text-coral active:scale-[0.96]",
         {
           "ml-auto": type === "minus",
         },
       )}
     >
       {type === "plus" ? (
-        <PlusIcon className="h-4 w-4 dark:text-neutral-500" />
+        <PlusIcon className="h-4 w-4" />
       ) : (
-        <MinusIcon className="h-4 w-4 dark:text-neutral-500" />
+        <MinusIcon className="h-4 w-4" />
       )}
     </button>
   );

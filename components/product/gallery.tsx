@@ -26,71 +26,97 @@ export function Gallery({
   const previousImageIndex =
     imageIndex === 0 ? images.length - 1 : imageIndex - 1;
 
-  const buttonClassName =
-    "h-full px-6 transition-all ease-in-out hover:scale-110 hover:text-black dark:hover:text-white flex items-center justify-center";
+  const arrowClassName =
+    "glass flex h-11 w-11 items-center justify-center rounded-full border border-line text-foreground shadow-sm transition-[opacity,scale] duration-200 hover:text-coral active:scale-[0.96] md:opacity-0 md:group-hover/gallery:opacity-100";
 
   return (
-    <form>
-      <div className="relative aspect-square h-full max-h-[550px] w-full overflow-hidden">
-        {images[imageIndex] && (
-          <Image
-            className="h-full w-full object-contain"
-            fill
-            sizes="(min-width: 1024px) 66vw, 100vw"
-            alt={images[imageIndex]?.altText as string}
-            src={images[imageIndex]?.src as string}
-            priority={true}
-          />
-        )}
+    <div>
+      {/* Mobil: wischbare Scroll-Snap-Galerie */}
+      <div
+        className="-mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:hidden"
+        aria-label="Produktbilder"
+      >
+        {images.map((image, index) => (
+          <div
+            key={image.src}
+            className={
+              images.length > 1
+                ? "relative aspect-square w-[86%] flex-none snap-center overflow-hidden rounded-2xl border border-line bg-surface"
+                : "relative aspect-square w-full flex-none overflow-hidden rounded-2xl border border-line bg-surface"
+            }
+          >
+            <Image
+              className="h-full w-full object-contain p-4"
+              fill
+              sizes="86vw"
+              alt={image.altText || "Produktbild"}
+              src={image.src}
+              priority={index === 0}
+            />
+          </div>
+        ))}
+      </div>
 
-        {images.length > 1 ? (
-          <div className="absolute bottom-[15%] flex w-full justify-center">
-            <div className="mx-auto flex h-11 items-center rounded-full border border-white bg-neutral-50/80 text-neutral-500 backdrop-blur-sm dark:border-black dark:bg-neutral-900/80">
+      {/* Desktop: Hauptbild + Thumbnails */}
+      <form className="group/gallery hidden md:block">
+        <div className="relative aspect-square max-h-[560px] w-full overflow-hidden rounded-3xl border border-line bg-surface">
+          {images[imageIndex] && (
+            <Image
+              className="h-full w-full object-contain p-8"
+              fill
+              sizes="(min-width: 1024px) 60vw, 100vw"
+              alt={images[imageIndex]?.altText as string}
+              src={images[imageIndex]?.src as string}
+              priority={true}
+            />
+          )}
+
+          {images.length > 1 ? (
+            <div className="absolute inset-x-4 top-1/2 flex -translate-y-1/2 justify-between">
               <button
                 formAction={() => updateImage(previousImageIndex.toString())}
-                aria-label="Previous product image"
-                className={buttonClassName}
+                aria-label="Vorheriges Produktbild"
+                className={arrowClassName}
               >
                 <ArrowLeftIcon className="h-5" />
               </button>
-              <div className="mx-1 h-6 w-px bg-neutral-500"></div>
               <button
                 formAction={() => updateImage(nextImageIndex.toString())}
-                aria-label="Next product image"
-                className={buttonClassName}
+                aria-label="Nächstes Produktbild"
+                className={arrowClassName}
               >
                 <ArrowRightIcon className="h-5" />
               </button>
             </div>
-          </div>
+          ) : null}
+        </div>
+
+        {images.length > 1 ? (
+          <ul className="mt-4 flex items-center gap-2.5">
+            {images.map((image, index) => {
+              const isActive = index === imageIndex;
+
+              return (
+                <li key={image.src} className="h-20 w-20">
+                  <button
+                    formAction={() => updateImage(index.toString())}
+                    aria-label={`Produktbild ${index + 1} anzeigen`}
+                    className="h-full w-full"
+                  >
+                    <GridTileImage
+                      alt={image.altText}
+                      src={image.src}
+                      width={80}
+                      height={80}
+                      active={isActive}
+                    />
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
         ) : null}
-      </div>
-
-      {images.length > 1 ? (
-        <ul className="my-12 flex items-center flex-wrap justify-center gap-2 overflow-auto py-1 lg:mb-0">
-          {images.map((image, index) => {
-            const isActive = index === imageIndex;
-
-            return (
-              <li key={image.src} className="h-20 w-20">
-                <button
-                  formAction={() => updateImage(index.toString())}
-                  aria-label="Select product image"
-                  className="h-full w-full"
-                >
-                  <GridTileImage
-                    alt={image.altText}
-                    src={image.src}
-                    width={80}
-                    height={80}
-                    active={isActive}
-                  />
-                </button>
-              </li>
-            );
-          })}
-        </ul>
-      ) : null}
-    </form>
+      </form>
+    </div>
   );
 }

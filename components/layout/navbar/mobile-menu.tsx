@@ -5,11 +5,17 @@ import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { Fragment, Suspense, useEffect, useState } from "react";
 
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, UserIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Menu } from "lib/shopify/types";
 import Search, { SearchSkeleton } from "./search";
 
-export default function MobileMenu({ menu }: { menu: Menu[] }) {
+export default function MobileMenu({
+  menu,
+  accountUrl,
+}: {
+  menu: Menu[];
+  accountUrl: string;
+}) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [isOpen, setIsOpen] = useState(false);
@@ -94,6 +100,14 @@ export default function MobileMenu({ menu }: { menu: Menu[] }) {
                     ))}
                   </ul>
                 ) : null}
+
+                <a
+                  href={accountUrl}
+                  className="mt-4 flex items-center gap-2.5 border-t border-line pt-5 text-base font-semibold text-muted transition-colors hover:text-coral"
+                >
+                  <UserIcon className="h-5" />
+                  Mein Konto
+                </a>
               </div>
             </Dialog.Panel>
           </Transition.Child>

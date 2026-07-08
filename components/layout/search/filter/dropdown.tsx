@@ -4,6 +4,7 @@ import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
+import clsx from "clsx";
 import type { ListItem } from ".";
 import { FilterItem } from "./item";
 
@@ -38,21 +39,27 @@ export default function FilterItemDropdown({ list }: { list: ListItem[] }) {
 
   return (
     <div className="relative" ref={ref}>
-      <div
+      <button
+        type="button"
+        aria-expanded={openSelect}
         onClick={() => {
           setOpenSelect(!openSelect);
         }}
-        className="flex w-full items-center justify-between rounded-sm border border-black/30 px-4 py-2 text-sm dark:border-white/30"
+        className="flex w-full items-center justify-between rounded-xl border border-line bg-surface px-4 py-2.5 text-sm font-semibold text-foreground transition-colors duration-150 hover:border-coral"
       >
         <div>{active}</div>
-        <ChevronDownIcon className="h-4" />
-      </div>
+        <ChevronDownIcon
+          className={clsx("h-4 transition-transform duration-200", {
+            "rotate-180": openSelect,
+          })}
+        />
+      </button>
       {openSelect && (
         <div
           onClick={() => {
             setOpenSelect(false);
           }}
-          className="absolute z-40 w-full rounded-b-md bg-white p-4 shadow-md dark:bg-black"
+          className="absolute z-40 mt-2 w-full rounded-xl border border-line bg-surface p-2 shadow-[0_16px_40px_-12px_rgba(25,20,16,0.25)]"
         >
           {list.map((item: ListItem, i) => (
             <FilterItem key={i} item={item} />

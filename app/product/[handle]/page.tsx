@@ -2,6 +2,7 @@ import { GridTileImage } from "components/grid/tile";
 import Footer from "components/layout/footer";
 import { Gallery } from "components/product/gallery";
 import { ProductDescription } from "components/product/product-description";
+import { StickyBuyBar } from "components/product/sticky-buy-bar";
 import { HIDDEN_PRODUCT_TAG } from "lib/constants";
 import { getProduct, getProductRecommendations } from "lib/shopify";
 import type { Image } from "lib/shopify/types";
@@ -80,12 +81,35 @@ export default async function ProductPage(props: {
           __html: JSON.stringify(productJsonLd),
         }}
       />
-      <div className="mx-auto max-w-(--breakpoint-2xl) px-4">
-        <div className="flex flex-col rounded-lg border border-neutral-200 bg-white p-8 md:p-12 lg:flex-row lg:gap-8 dark:border-neutral-800 dark:bg-black">
-          <div className="h-full w-full basis-full lg:basis-4/6">
+      <div className="mx-auto max-w-(--breakpoint-2xl) px-4 pb-28 sm:pb-0 lg:px-6">
+        <nav
+          aria-label="Breadcrumb"
+          className="flex items-center gap-1.5 py-4 text-xs font-semibold text-muted"
+        >
+          <Link
+            href="/"
+            prefetch={true}
+            className="transition-colors hover:text-coral"
+          >
+            Start
+          </Link>
+          <span aria-hidden>/</span>
+          <Link
+            href="/search"
+            prefetch={true}
+            className="transition-colors hover:text-coral"
+          >
+            Shop
+          </Link>
+          <span aria-hidden>/</span>
+          <span className="truncate text-foreground">{product.title}</span>
+        </nav>
+
+        <div className="flex flex-col gap-8 lg:flex-row lg:gap-12">
+          <div className="w-full lg:sticky lg:top-24 lg:h-fit lg:basis-3/5">
             <Suspense
               fallback={
-                <div className="relative aspect-square h-full max-h-[550px] w-full overflow-hidden" />
+                <div className="relative aspect-square w-full overflow-hidden rounded-3xl border border-line bg-surface" />
               }
             >
               <Gallery
@@ -97,14 +121,20 @@ export default async function ProductPage(props: {
             </Suspense>
           </div>
 
-          <div className="basis-full lg:basis-2/6">
+          <div className="w-full lg:basis-2/5">
             <Suspense fallback={null}>
               <ProductDescription product={product} />
             </Suspense>
           </div>
         </div>
+
         <RelatedProducts id={product.id} />
       </div>
+
+      <Suspense fallback={null}>
+        <StickyBuyBar product={product} />
+      </Suspense>
+
       <Footer />
     </>
   );
@@ -116,8 +146,10 @@ async function RelatedProducts({ id }: { id: string }) {
   if (!relatedProducts.length) return null;
 
   return (
-    <div className="py-8">
-      <h2 className="mb-4 text-2xl font-bold">Related Products</h2>
+    <section className="pt-16 pb-8">
+      <h2 className="font-display mb-5 text-2xl font-extrabold tracking-tight text-foreground">
+        Das könnte dir auch gefallen
+      </h2>
       <ul className="flex w-full gap-4 overflow-x-auto pt-1">
         {relatedProducts.map((product) => (
           <li
@@ -133,8 +165,8 @@ async function RelatedProducts({ id }: { id: string }) {
                 alt={product.title}
                 label={{
                   title: product.title,
-                  amount: product.priceRange.maxVariantPrice.amount,
-                  currencyCode: product.priceRange.maxVariantPrice.currencyCode,
+                  amount: product.priceRange.minVariantPrice.amount,
+                  currencyCode: product.priceRange.minVariantPrice.currencyCode,
                 }}
                 src={product.featuredImage?.url}
                 fill
@@ -144,6 +176,6 @@ async function RelatedProducts({ id }: { id: string }) {
           </li>
         ))}
       </ul>
-    </div>
+    </section>
   );
 }
